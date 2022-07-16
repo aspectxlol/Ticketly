@@ -2,7 +2,7 @@ import { CacheType, GuildMember, MessageActionRow, MessageEmbed, Modal, ModalAct
 import bot from "../../structures/bot";
 import BotModal from "../../structures/BotModals";
 import guildDB from "../../utils/GuildDatabase";
-import { setTicket } from "../../utils/TicketDatabase";
+import ticketDB, { setTicket } from "../../utils/TicketDatabase";
 
 const nameInput = new TextInputComponent()
     .setLabel('Name')
@@ -35,6 +35,7 @@ class TicketModal extends BotModal {
     }
 
     public async execute(interaction: ModalSubmitInteraction<CacheType>, client: bot) {
+        if(!(await ticketDB.get(interaction.guild?.id!))) return interaction.reply({content: 'Ticketly is not setup please do `/ticket setup`', ephemeral: true})
         const channel = await client.createTicket(interaction.guild!, client,interaction.fields.getTextInputValue('name'), interaction.fields.getTextInputValue('reason'), (interaction.member as GuildMember))
         const embed = new MessageEmbed()
             .setTitle('Ticket Created')
