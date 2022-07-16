@@ -3,3 +3,4 @@
 package-lock.json
 /src/database
 **/db.commands.ts
+/src/utils/htmlTest
