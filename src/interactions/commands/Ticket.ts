@@ -7,7 +7,8 @@ import {
     CategoryChannel,
     TextChannel,
     MessageActionRow,
-    MessageEmbed
+    MessageEmbed,
+    EmbedFieldData
 } from "discord.js";
 import {
     ChannelType
@@ -77,6 +78,7 @@ class Ticket extends BotCommand {
             })
         } else if (subCommand === 'list') {
             const tickets: ticketDbType[] = (await ticketDB.all() as unknown as ticketDbType[])
+            let fields: EmbedFieldData[] = [];
             const ticketsEmbed = new MessageEmbed()
                 .setTitle('All Tickets')
                 .setDescription('all opened tickets');
@@ -84,8 +86,9 @@ class Ticket extends BotCommand {
             tickets.forEach((ticket) => {
                 if(ticket.value.closed) return
                 const user = client.users.cache.get(ticket.value.user)
-                ticketsEmbed.addField(`${ticket.value.name}: ${ticket.value.reason} - ${user?.username}`, ``, true)
+                fields.push({name: `${ticket.value.name}:`, value: `${ticket.value.reason} - ${user?.username}`, inline: true})
             })
+            ticketsEmbed.setFields(fields)
             return interaction.reply({
                 embeds: [ticketsEmbed]
             })
@@ -95,3 +98,5 @@ class Ticket extends BotCommand {
 }
 
 export default new Ticket()
+
+//Type '{ name: string; value: string; inline: boolean | undefined; }' does not satisfy the constraint 'unknown[]'.
