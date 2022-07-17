@@ -1,4 +1,4 @@
-import { ButtonInteraction, CacheType, Emoji, MessageButton } from "discord.js";
+import { ButtonInteraction, CacheType, MessageButton } from "discord.js";
 import bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
 import TicketMenu from "../modals/TicketMenu";

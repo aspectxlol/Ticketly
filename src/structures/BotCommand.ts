@@ -1,5 +1,5 @@
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10'
-import { CommandInteraction, Interaction } from 'discord.js'
+import { CommandInteraction } from 'discord.js'
 import Bot from './Bot'
 
 export default abstract class BotCommand {

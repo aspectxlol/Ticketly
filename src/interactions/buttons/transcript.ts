@@ -1,10 +1,8 @@
 import { ButtonInteraction, CacheType, MessageButton } from "discord.js";
 import Bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
-import { ticketDbType } from "../../types";
 import ticketDB from "../../utils/TicketDatabase";
 import { strign2bin } from "../../utils/utils";
-import Ticket from "./Ticket";
 
 class transcript extends botButtons {
     constructor() {
