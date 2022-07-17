@@ -1,5 +1,5 @@
 import { ButtonInteraction, CacheType, MessageButton } from "discord.js";
-import bot from "../../structures/bot";
+import Bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
 import { ticketDbType } from "../../types";
 import ticketDB from "../../utils/TicketDatabase";
@@ -17,7 +17,7 @@ class transcript extends botButtons {
         )
     }
 
-    public async execute(interaction: ButtonInteraction<CacheType>, client: bot) {
+    public async execute(interaction: ButtonInteraction<CacheType>, client: Bot) {
         let data: string[] = [];
         let bin: number[] = [];
         const Ticket = await ticketDB.get(`${interaction.channel?.id!}.ticketId`)

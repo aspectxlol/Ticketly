@@ -1,8 +1,7 @@
-import { ButtonInteraction, CacheType, Message, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import bot from "../../structures/bot";
+import { ButtonInteraction, CacheType, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import Bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
-import { ticketDbType } from "../../types";
-import ticketDB, { setTicket } from "../../utils/TicketDatabase";
+import ticketDB from "../../utils/TicketDatabase";
 import reopen from "./reopen";
 import transcript from "./transcript";
 
@@ -17,7 +16,7 @@ class close extends botButtons {
         )
     }
 
-    public async execute(interaction: ButtonInteraction<CacheType>, client: bot) {
+    public async execute(interaction: ButtonInteraction<CacheType>, client: Bot) {
         const embed = new MessageEmbed()
             .setTitle('Ticket Closed')
             .setDescription('This Ticket is Closed');

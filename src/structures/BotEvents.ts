@@ -1,10 +1,10 @@
 import { ClientEvents } from "discord.js";
-import AspectxBot from "./bot";
+import Bot from "./Bot";
 
 export default abstract class BotEvent<T extends EventName> {
-    client: AspectxBot 
+    client: Bot 
 
-    constructor( client: AspectxBot) {
+    constructor( client: Bot) {
         this.client = client
     }
 
@@ -14,7 +14,7 @@ export default abstract class BotEvent<T extends EventName> {
 export type EventName = keyof ClientEvents;
 
 export type EventListener<T extends EventName> = (
-    client: AspectxBot,
+    client: Bot,
     ...args: ClientEvents[T]
 ) => void;
 

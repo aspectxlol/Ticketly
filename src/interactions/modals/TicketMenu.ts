@@ -1,8 +1,7 @@
 import { CacheType, GuildMember, MessageActionRow, MessageEmbed, Modal, ModalActionRowComponent, ModalSubmitInteraction, TextInputComponent } from "discord.js";
-import bot from "../../structures/bot";
+import Bot from "../../structures/Bot";
 import BotModal from "../../structures/BotModals";
-import guildDB from "../../utils/GuildDatabase";
-import ticketDB, { setTicket } from "../../utils/TicketDatabase";
+import ticketDB from "../../utils/TicketDatabase";
 
 const nameInput = new TextInputComponent()
     .setLabel('Name')
@@ -34,7 +33,7 @@ class TicketModal extends BotModal {
         );
     }
 
-    public async execute(interaction: ModalSubmitInteraction<CacheType>, client: bot) {
+    public async execute(interaction: ModalSubmitInteraction<CacheType>, client: Bot) {
         if(!(await ticketDB.get(interaction.guild?.id!))) return interaction.reply({content: 'Ticketly is not setup please do `/ticket setup`', ephemeral: true})
         const channel = await client.createTicket(interaction.guild!, client,interaction.fields.getTextInputValue('name'), interaction.fields.getTextInputValue('reason'), (interaction.member as GuildMember))
         const embed = new MessageEmbed()

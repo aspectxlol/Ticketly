@@ -1,5 +1,5 @@
 import { Modal, ModalSubmitInteraction } from "discord.js"
-import AspectxBot from "./bot"
+import Bot from "./Bot"
 
 export default abstract class BotModal {
     data: Modal
@@ -9,5 +9,5 @@ export default abstract class BotModal {
         this.name = name
     }
 
-    public abstract execute(interaction: ModalSubmitInteraction, client: AspectxBot): any
+    public abstract execute(interaction: ModalSubmitInteraction, client: Bot): any
 }

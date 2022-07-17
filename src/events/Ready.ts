@@ -1,4 +1,4 @@
-import AspectxBot from "../structures/bot";
+import Bot from "../structures/Bot";
 import BotCommand from "../structures/BotCommand";
 import { buttonFiles, commandFiles, modalFiles } from "../utils/files";
 import { REST } from "@discordjs/rest";
@@ -7,12 +7,12 @@ import BotEvent from "../structures/BotEvents";
 import BotModals from "../structures/BotModals";
 import botButtons from "../structures/BotButtons";
 
-export default class onReadyEvent extends BotEvent<'ready'> {
+export default class Ready extends BotEvent<'ready'> {
     commands: BotCommand[]
     modals: BotModals[]
     buttons: botButtons[]
 
-    constructor(client: AspectxBot) {
+    constructor(client: Bot) {
         super(client)
         this.commands = []
         this.modals = []

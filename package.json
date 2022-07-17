@@ -12,7 +12,7 @@
     "dev": "nodemon src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "aspectxlol",
   "license": "ISC",
   "dependencies": {
     "@discordjs/builders": "^0.15.0",

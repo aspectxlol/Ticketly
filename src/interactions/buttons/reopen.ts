@@ -1,5 +1,5 @@
 import { ButtonInteraction, CacheType, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import bot from "../../structures/bot";
+import bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
 import ticketDB from "../../utils/TicketDatabase";
 import close from "./close";

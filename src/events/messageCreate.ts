@@ -1,9 +1,9 @@
 import { Message } from "discord.js";
-import AspectxBot from "../structures/bot";
+import Bot from "../structures/Bot";
 import BotEvent from "../structures/BotEvents";
 
-export default class onMessageCreateEvent extends BotEvent<"messageCreate"> {
-    constructor(client: AspectxBot) {
+export default class messageCreate extends BotEvent<"messageCreate"> {
+    constructor(client: Bot) {
         super(client)
     }
 

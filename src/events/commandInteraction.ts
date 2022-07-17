@@ -1,10 +1,9 @@
 import { CacheType, Interaction, MessageEmbed } from "discord.js";
-import AspectxBot from "../structures/bot";
-import BotCommand from "../structures/BotCommand";
+import Bot from "../structures/Bot";
 import BotEvent from "../structures/BotEvents";
 
-export default class onCommandInteractionCreateEvent extends BotEvent<'interactionCreate'> {
-    constructor(client: AspectxBot) {
+export default class commandInteraction extends BotEvent<'interactionCreate'> {
+    constructor(client: Bot) {
         super(client)
 
     }

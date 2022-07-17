@@ -1,4 +1,4 @@
-import { CategoryChannel, Channel, Client, ClientOptions, Collection, Guild, GuildMember, MessageActionRow, MessageEmbed, TextChannel } from "discord.js";
+import { CategoryChannel , Client, ClientOptions, Collection, Guild, GuildMember, MessageActionRow, MessageEmbed } from "discord.js";
 import { GuildData } from "../types";
 import guildDB from "../utils/GuildDatabase";
 import { setTicket } from "../utils/TicketDatabase";
@@ -8,7 +8,7 @@ import BotModal from "./BotModals";
 import { v4 as uuidv4 } from 'uuid'
 import close from "../interactions/buttons/close";
 
-export default class AspectxBot extends Client {
+export default class Bot extends Client {
     commands: Collection<string, BotCommand>
     modal: Collection<string, BotModal>
     button: Collection<string, botButtons>
@@ -20,7 +20,7 @@ export default class AspectxBot extends Client {
         this.button = new Collection()
     }
 
-    async createTicket(guild: Guild, client: AspectxBot, name: string, reason: string, member: GuildMember) {
+    async createTicket(guild: Guild, client: Bot, name: string, reason: string, member: GuildMember) {
         const ticket = await (await guild.channels.cache.get((((await guildDB.get(guild.id) as GuildData).TicketCategory) as string)) as CategoryChannel).createChannel(`${name}`, {
             type: 'GUILD_TEXT',
             reason: `${reason}`

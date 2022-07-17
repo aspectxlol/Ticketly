@@ -1,7 +1,7 @@
 import { ButtonInteraction, MessageButton } from "discord.js";
-import AspectxBot from "./bot";
+import Bot from "./Bot";
 
-export default abstract class botButtons {
+export default abstract class BotButtons {
     data: MessageButton
     name: string
 
@@ -10,5 +10,5 @@ export default abstract class botButtons {
         this.name = name
     }
 
-    public abstract execute(interaction: ButtonInteraction, client: AspectxBot): any
+    public abstract execute(interaction: ButtonInteraction, client: Bot): any
 }

@@ -1,31 +1,13 @@
-import {
-    SlashCommandBuilder
-} from "@discordjs/builders";
-import {
-    CommandInteraction,
-    CacheType,
-    CategoryChannel,
-    TextChannel,
-    MessageActionRow,
-    MessageEmbed,
-    EmbedFieldData
-} from "discord.js";
-import {
-    ChannelType
-} from 'discord-api-types/v10'
-import bot from "../../structures/bot";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, CacheType, CategoryChannel, TextChannel, MessageActionRow, MessageEmbed, EmbedFieldData } from "discord.js";
+import { ChannelType } from 'discord-api-types/v10'
+import Bot from "../../structures/Bot";
 import BotCommand from "../../structures/BotCommand";
-import db from "../../utils/TicketDatabase";
 import TicketMenu from "../modals/TicketMenu";
 import TicketButton from '../buttons/Ticket'
-import {
-    setTicketCategory
-} from "../../utils/GuildDatabase";
+import { setTicketCategory } from "../../utils/GuildDatabase";
 import ticketDB from "../../utils/TicketDatabase";
-import {
-    ticket,
-    ticketDbType
-} from "../../types";
+import { ticketDbType } from "../../types";
 
 class Ticket extends BotCommand {
     constructor() {
@@ -61,7 +43,7 @@ class Ticket extends BotCommand {
         )
     }
 
-    public async execute(interaction: CommandInteraction < CacheType > , client: bot) {
+    public async execute(interaction: CommandInteraction < CacheType > , client: Bot) {
         const subCommand = interaction.options.getSubcommand()
         if (subCommand === 'create') {
             return interaction.showModal(TicketMenu.data)
