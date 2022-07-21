@@ -15,11 +15,10 @@
   "author": "aspectxlol",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
     "axios": "^0.27.2",
     "better-sqlite3": "^7.6.1",
-    "discord.js": "^13.8.0",
+    "discord.js": "^14.0.3",
     "dotenv": "^16.0.1",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
@@ -30,6 +29,7 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.5.0",
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "ts-node": "^10.9.1"
   }
 }

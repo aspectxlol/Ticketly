@@ -1,12 +1,12 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, CacheType, CategoryChannel, TextChannel, MessageActionRow, MessageEmbed, EmbedFieldData } from "discord.js";
+import { CommandInteraction, CacheType, CategoryChannel, TextChannel, ActionRowBuilder, EmbedBuilder, ButtonBuilder, ChatInputCommandInteraction, EmbedField } from "discord.js";
 import { ChannelType } from 'discord-api-types/v10'
 import Bot from "../../structures/Bot";
 import BotCommand from "../../structures/BotCommand";
 import TicketMenu from "../modals/TicketMenu";
 import TicketButton from '../buttons/Ticket'
-import { setTicketCategory } from "../../utils/GuildDatabase";
-import ticketDB from "../../utils/TicketDatabase";
+import { setTicketCategory } from "../../utils/database/GuildDatabase";
+import ticketDB from "../../utils/database/TicketDatabase";
 import { ticketDbType } from "../../types";
 
 class Ticket extends BotCommand {
@@ -39,18 +39,19 @@ class Ticket extends BotCommand {
                 .setName('list')
                 .setDescription('view all the current opened tickets')
             )
-            .toJSON()
+            .toJSON(),
+            {requiredPermmisions: []}
         )
     }
 
-    public async execute(interaction: CommandInteraction < CacheType > , client: Bot) {
+    public async execute(interaction: ChatInputCommandInteraction < CacheType > , client: Bot) {
         const subCommand = interaction.options.getSubcommand()
         if (subCommand === 'create') {
             return interaction.showModal(TicketMenu.data)
         } else if (subCommand === 'setup') {
             setTicketCategory(interaction.guild!, (interaction.options.getChannel('category') as CategoryChannel))
             const channel = interaction.options.getChannel('channel') as TextChannel
-            const row = new MessageActionRow().addComponents(TicketButton.data)
+            const row = new ActionRowBuilder<ButtonBuilder>().addComponents(TicketButton.data)
             channel.send({
                 components: [row]
             })
@@ -59,9 +60,9 @@ class Ticket extends BotCommand {
                 ephemeral: true
             })
         } else if (subCommand === 'list') {
+            let fields: EmbedField[] = []
             const tickets: ticketDbType[] = (await ticketDB.all() as unknown as ticketDbType[])
-            let fields: EmbedFieldData[] = [];
-            const ticketsEmbed = new MessageEmbed()
+            const ticketsEmbed = new EmbedBuilder()
                 .setTitle('All Tickets')
                 .setDescription('all opened tickets');
 

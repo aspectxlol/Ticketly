@@ -1,4 +1,4 @@
-import { Interaction, CacheType, MessageEmbed } from "discord.js";
+import { Interaction, CacheType, EmbedBuilder } from "discord.js";
 import Bot from "../structures/Bot";
 import BotEvent from "../structures/BotEvents";
 
@@ -17,7 +17,7 @@ export default class buttonInteraction extends BotEvent<"interactionCreate"> {
         } catch (error) {
             if(error instanceof Error) {
                 console.log(error)
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle(`${error.name}`)
                     .setDescription(error.message)
 

@@ -1,11 +1,11 @@
-import { ButtonInteraction, MessageButton } from "discord.js";
+import { ButtonInteraction, ButtonBuilder } from "discord.js";
 import Bot from "./Bot";
 
 export default abstract class BotButtons {
-    data: MessageButton
+    data: ButtonBuilder
     name: string
 
-    constructor(name: string, data: MessageButton) {
+    constructor(name: string, data: ButtonBuilder) {
         this.data = data
         this.name = name
     }

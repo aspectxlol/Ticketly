@@ -18,3 +18,5 @@ interface ticketDbType {
     id: string,
     value: ticket
 }
+
+// interface GuildDBType 

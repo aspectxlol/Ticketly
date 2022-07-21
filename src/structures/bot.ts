@@ -1,7 +1,7 @@
-import { CategoryChannel , Client, ClientOptions, Collection, Guild, GuildMember, MessageActionRow, MessageEmbed } from "discord.js";
-import { GuildData } from "../types";
-import guildDB from "../utils/GuildDatabase";
-import { setTicket } from "../utils/TicketDatabase";
+import { CategoryChannel , Client, ClientOptions, Collection, Guild, GuildMember, ActionRowBuilder, EmbedBuilder, CategoryChannelType, CategoryChildChannel, CategoryChannelChildManager, ButtonBuilder } from "discord.js";
+import { GuildData, ticketDbType } from "../types";
+import guildDB from "../utils/database/GuildDatabase";
+import { setTicket } from "../utils/database/TicketDatabase";
 import botButtons from "./BotButtons";
 import BotCommand from "./BotCommand";
 import BotModal from "./BotModals";
@@ -21,10 +21,17 @@ export default class Bot extends Client {
     }
 
     async createTicket(guild: Guild, client: Bot, name: string, reason: string, member: GuildMember) {
-        const ticket = await (await guild.channels.cache.get((((await guildDB.get(guild.id) as GuildData).TicketCategory) as string)) as CategoryChannel).createChannel(`${name}`, {
-            type: 'GUILD_TEXT',
-            reason: `${reason}`
-        })
+        // console.log(await guildDB.get(`${guild.id}`) as GuildData)
+        const ticket = await (await guild.channels.create({
+            name: name, 
+            reason: reason,
+            
+            parent: await ( guild.channels.cache.get(((( await guildDB.get(guild.id) as GuildData).TicketCategory) as string)) as CategoryChannel)
+        }))
+        // const ticket = await (await guild.channels.cache.get((((await guildDB.get(guild.id) as GuildData).TicketCategory) as string)) as CategoryChannelChildManager).createChannel(`${name}`, {
+        //     type: 'GUILD_TEXT',
+        //     reason: `${reason}`
+        // })
         setTicket({
             channel: ticket.id,
             guildId: guild.id,
@@ -34,7 +41,7 @@ export default class Bot extends Client {
             ticketId: uuidv4(),
             closed: false
         })
-        const embed = new MessageEmbed()    
+        const embed = new EmbedBuilder()    
             .setAuthor({
                 name: member.displayName,
                 iconURL: member.displayAvatarURL()
@@ -42,7 +49,7 @@ export default class Bot extends Client {
             .setTitle(`${name} - ${member.nickname || member.displayName}`)
             .setDescription(`${reason}`)
             .setTimestamp();
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(close.data)
         ticket.send({embeds: [embed], components: [row]})
         return ticket

@@ -1,4 +1,4 @@
-import { ButtonInteraction, CacheType, MessageButton } from "discord.js";
+import { ButtonInteraction, CacheType, ButtonBuilder, ButtonStyle } from "discord.js";
 import bot from "../../structures/Bot";
 import botButtons from "../../structures/BotButtons";
 import TicketMenu from "../modals/TicketMenu";
@@ -7,10 +7,10 @@ class TicketButton extends botButtons {
     constructor() {
         super(
             'Ticket',
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('ticket')
                 .setLabel('Create Ticket')
-                .setStyle('SUCCESS')
+                .setStyle(ButtonStyle.Success)
         )
     }
 

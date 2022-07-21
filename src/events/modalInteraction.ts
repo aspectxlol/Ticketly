@@ -1,4 +1,4 @@
-import { Interaction, CacheType, MessageEmbed } from "discord.js";
+import { Interaction, CacheType, EmbedBuilder, InteractionType, ModalSubmitInteraction } from "discord.js";
 import Bot from "../structures/Bot";
 import BotEvent from "../structures/BotEvents";
 
@@ -8,7 +8,8 @@ export default class modalInteraction extends BotEvent<"interactionCreate"> {
     }
 
     public async execute(interaction: Interaction<CacheType>) {
-        if(!interaction.isModalSubmit()) return 
+        if(!(interaction.type === InteractionType.ModalSubmit)) return 
+        const int = interaction as ModalSubmitInteraction
         const modal = this.client.modal.get(interaction.customId)
         if(!modal) return
 
@@ -17,7 +18,7 @@ export default class modalInteraction extends BotEvent<"interactionCreate"> {
         } catch (error) {
             if(error instanceof Error) {
                 console.log(error)
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle(`${error.name}`)
                     .setDescription(error.message)
 

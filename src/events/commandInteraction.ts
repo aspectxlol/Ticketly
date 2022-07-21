@@ -1,28 +1,30 @@
-import { CacheType, Interaction, MessageEmbed } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, Interaction, EmbedBuilder, InteractionType } from "discord.js";
 import Bot from "../structures/Bot";
 import BotEvent from "../structures/BotEvents";
 
 export default class commandInteraction extends BotEvent<'interactionCreate'> {
     constructor(client: Bot) {
         super(client)
-
     }
 
-    public execute(interaction: Interaction<CacheType>): void {
-        if(!interaction.isCommand()) return
-        const command = this.client.commands.get(interaction.commandName.toString())
+    public async execute(interaction: Interaction<CacheType>) {
+        if(!(interaction.type === InteractionType.ApplicationCommand)) return
+        const int = interaction as ChatInputCommandInteraction<CacheType>
+        const command = this.client.commands.get(int.commandName.toString())
 
         if(!command) return
-
+        if(command.options.requiredPermmisions) {
+            // int.member?.permissions
+        }
         try {
-            command?.execute(interaction, this.client);
+            command?.execute(int, this.client);
         } catch (e) {
             if(e instanceof Error) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle(`${e.name}`)
                     .setDescription(e.message)
 
-                interaction.reply({embeds: [embed], ephemeral: true})
+                int.reply({embeds: [embed], ephemeral: true})
             }
         }
     }

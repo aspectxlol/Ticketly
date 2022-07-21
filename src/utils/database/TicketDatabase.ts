@@ -1,5 +1,5 @@
 import { QuickDB } from "quick.db";
-import { ticket } from "../types";
+import { ticket } from "../../types";
 
 const ticketDB = new QuickDB({filePath: 'src/database/tickets.sqlite'})
 
